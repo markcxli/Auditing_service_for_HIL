@@ -1,0 +1,20 @@
+from hil import config
+from hil.config import cfg
+from subprocess import call
+from hil.ext.network_allocators.vlan_pool import get_vlan_list
+
+config.load()
+
+def create_bridge(vlan_no):
+    vlan_no = str(vlan_no)
+    trunk_nic = cfg.get('headnode', 'trunk_nic')
+    bridge = 'br-vlan%s' % vlan_no
+    vlan_nic = '%s.%s' % (trunk_nic, vlan_no)
+    call(['brctl', 'addbr', bridge])
+    call(['vconfig', 'add', trunk_nic, vlan_no])
+    call(['brctl', 'addif', bridge, vlan_nic])
+    call(['ifconfig', bridge, 'up', 'promisc'])
+    call(['ifconfig', vlan_nic, 'up', 'promisc'])
+
+for vlan in get_vlan_list():
+    create_bridge(vlan)

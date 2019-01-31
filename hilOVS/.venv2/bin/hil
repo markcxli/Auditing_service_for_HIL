@@ -1,0 +1,6 @@
+#!/home/ali/gitRepos/hil/.venv2/bin/python2
+# EASY-INSTALL-DEV-SCRIPT: 'hil==0.3.dev507+g01a2a6b','hil'
+__requires__ = 'hil==0.3.dev507+g01a2a6b'
+__import__('pkg_resources').require('hil==0.3.dev507+g01a2a6b')
+__file__ = '/home/ali/gitRepos/hil/scripts/hil'
+exec(compile(open(__file__).read(), __file__, 'exec'))
